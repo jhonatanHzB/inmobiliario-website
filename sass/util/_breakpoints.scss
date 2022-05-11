@@ -1,0 +1,19 @@
+$breakpoints: (
+	phone: 600px, // max-width
+	portrait-tablet: 600px, // min-width
+	tablet: 768px, // min-width
+	desktop: 1024px, // min-width
+	widescreen: 1216px // min-width
+);
+
+@mixin breakpoint-min($size) {
+	@media screen and (min-width: map-get($breakpoints, $size)) {
+		@content;
+	}
+}
+
+@mixin breakpoint-max($size) {
+	@media screen and (max-width: calc(map-get($breakpoints, $size) - 1px)) {
+		@content;
+	}
+}
