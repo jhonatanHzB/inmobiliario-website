@@ -1,0 +1,74 @@
+.change-theme {
+  font-size: 1.25rem;
+  color: #fff;
+  cursor: pointer;
+  transition: .3s;
+
+  &:hover {
+    color: var(--first-color);
+  }
+}
+
+body.dark-theme {
+  --first-color: hsl(228, 66%, 62%);
+  --second-color: hsl(25, 57%, 54%);
+  --title-color: hsl(228, 8%, 95%);
+  --text-color: hsl(228, 8%, 70%);
+  --border-color: hsl(228, 16%, 14%);
+  --body-color: hsl(228, 12%, 8%);
+  --container-color: hsl(228, 16%, 12%);
+}
+
+.dark-theme {
+  .home__search {
+    border: 3px solid var(--border-color);
+  }
+
+  .nav__menu,
+  .home__images .home__img,
+  .popular__container .popular__card:hover,
+  .value__container .value__images .value__img,
+  .value__container .value__accordion .accordion-open,
+  .value__container .value__accordion-icon,
+  .value__container .value__accordion-arrow,
+  .contact__container .contact__images .contact__img,
+  .contact__container .contact__card-box:hover,
+  .show-scroll {
+    box-shadow: none;
+  }
+
+  .value__container .value__images .value__orbe,
+  .value__container .value__accordion-icon,
+  .value__container .value__accordion-arrow,
+  .contact__container .contact__images .contact__orbe,
+  .contact__container .contact__card i,
+  .contact__container .contact__card-button,
+  .subscribe__container {
+    background-color: var(--container-color);
+  }
+
+  .subscribe__container {
+    border: 6px solid var(--border-color);
+
+    .subscribe__description {
+      color: var(--text-color);
+    }
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    border: 3px solid var(--border-color);
+  }
+
+  ::-webkit-scrollbar {
+    background-color: hsl(228, 4%, 15%);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(228, 4%, 25%);
+
+    &:hover {
+      background-color: hsl(228, 4%, 35%);
+    }
+  }
+}

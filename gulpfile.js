@@ -6,7 +6,6 @@ const del = require('del');
 const replace = require('gulp-replace');
 const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
-const typescript = require('gulp-typescript');
 const uglify = require('gulp-uglify');
 
 const cleanupStyles = () => del(['./public/assets/css/*.css']);
@@ -18,14 +17,13 @@ const reload = (done) => {
 
 const watchedFiles = () => {
   watch('./src/**/*.js', series(buildJavascript));
-  watch('./src/**/*.ts', series(buildTypescript));
-  watch('./sass/**/*.scss', series(buildStyles));
+  watch('./src/**/*.scss', series(buildStyles));
   watch('**/*.html', reload);
   watch('**/*.json', reload);
 };
 
 const buildJavascript = () => {
-  return src('./src/**/*.js')
+  return src('./src/js/**/*.js')
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(sourcemaps.write('.'))
@@ -33,19 +31,11 @@ const buildJavascript = () => {
     .pipe(browsersync.stream());
 };
 
-const buildTypescript = () => {
-  return src('./src/**/*.ts')
-    .pipe(sourcemaps.init())
-    .pipe(typescript())
-    .pipe(sourcemaps.write('.'))
-    .pipe(dest('./public/assets/js'));
-};
-
 const buildStyles = () => {
-  return src('./sass/**/*.scss')
+  return src('./src/scss/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
-    .pipe(sourcemaps.write('./maps'))
+    .pipe(sourcemaps.write('.'))
     .pipe(dest('./public/assets/css'))
     .pipe(browsersync.stream());
 };
@@ -89,13 +79,6 @@ const buildJavaScriptProd = () => {
     .pipe(dest('./dist/js'));
 };
 
-const buildTypescriptProd = () => {
-  return src('./src/**/*.ts')
-    .pipe(typescript())
-    .pipe(uglify())
-    .pipe(dest('./dist/js'));
-};
-
 exports.dev = series(parallel(watchedFiles, server));
 exports.prod = series(
   cleanDist,
@@ -103,7 +86,6 @@ exports.prod = series(
     buildHTML,
     buildImages,
     buildCSS,
-    buildJavaScriptProd,
-    buildTypescriptProd
+    buildJavaScriptProd
   )
 );
